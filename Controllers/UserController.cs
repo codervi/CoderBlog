@@ -23,7 +23,9 @@ namespace CoderBlog.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(User user)
         {
+            //for password hash
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
             user.RegisteredDate = DateTime.Now;
             ModelState.Remove("RegisteredDate");
 
