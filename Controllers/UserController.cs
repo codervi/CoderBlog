@@ -1,6 +1,7 @@
 ﻿using CoderBlog.Models;
 using CoderBlog.Models.DataContext;
 using Microsoft.AspNetCore.Mvc;
+using BCrypt.Net;
 
 namespace CoderBlog.Controllers
 {
@@ -22,10 +23,8 @@ namespace CoderBlog.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(User user)
         {
-            // 1. Tarihi biz otomatik veriyoruz
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             user.RegisteredDate = DateTime.Now;
-
-            // 2. ModelState'ten tarih hatasını siliyoruz (Kritik nokta burası!)
             ModelState.Remove("RegisteredDate");
 
             if (ModelState.IsValid)
@@ -36,7 +35,6 @@ namespace CoderBlog.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            // Eğer hala false dönüyorsa hatayı gör diye sayfaya geri gönderir
             return View(user);
         }
     }
