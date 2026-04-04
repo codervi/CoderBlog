@@ -19,10 +19,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+
+                        @* KULLANICI GİRİŞ YAPMIŞSA BURASI ÇALIŞIR *@
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark">Selam @User.Identity?.Name!</a>
+                                <a class="nav-link text-dark fw-bold">Selam @User.Identity?.Name!</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -31,9 +33,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="User" asp-action="Logout">Çıkış Yap</a>
+                                @* Bu link direkt UserController'daki [HttpGet] Logout metoduna gider *@
+                                <a class="nav-link text-danger" asp-controller="User" asp-action="Logout">Çıkış Yap</a>
                             </li>
                         }
+
+                        @* KULLANICI MİSAFİRSE BURASI ÇALIŞIR *@
                         else
                         {
                             <li class="nav-item">
@@ -43,11 +48,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link text-primary" asp-controller="User" asp-action="Login">Giriş Yap</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="User" asp-action="Register">Kayıt Ol</a>
                             </li>
                         }
-                        
-                        
                     </ul>
                 </div>
             </div>

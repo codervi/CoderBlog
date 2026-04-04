@@ -38,7 +38,7 @@ namespace CoderBlog.Controllers
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
                 // Şimdilik ana sayfaya gitsin, Login yapınca oraya bağlarsın
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "User");
             }
 
             return View(user);
@@ -85,6 +85,19 @@ namespace CoderBlog.Controllers
                 return View();
             }
         }
-        
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            ViewBag.Mesaj = "Çıkış yapmak istediğinden emin misin kanka?";
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogoutConfirm()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
