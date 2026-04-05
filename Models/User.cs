@@ -13,10 +13,11 @@ namespace CoderBlog.Models
         public DateTime RegisteredDate { get; set; } = DateTime.Now;
 
 
-        // Bir kullanıcının birden fazla makalesi olabilir (İlişki)
+        // A user may have more than one article (Relationship)
         public ICollection<BlogPost>? BlogPosts { get; set; }
-        //Not : Yukarıda ki bölüm Required olammasına rağmen başka yerde ki tanımından dolayı DB de kayıt sırasında sorun
-        // yaratıyordu. Bizlerde Soru işareti "?" atarak " Zorunlu değildir " ibaresini burada eklemiş oluyoruz
+        /*Note: Although the section above is marked as “Required”, it was causing issues during database registration due to a definition elsewhere.
+         We have therefore added the phrase “Not required” here by including a question mark ‘?’.
+        */
 
     }
 }

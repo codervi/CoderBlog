@@ -13,8 +13,8 @@ builder.Services.AddDbContext<BlogDbContext>(options =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/User/Login"; // Giriþ yapýlmamýþsa buraya atar
-        options.ExpireTimeSpan = TimeSpan.FromDays(7); // 7 gün boyunca login kalsýn
+        options.LoginPath = "/User/Login"; // If no login has been made, it will redirect here
+        options.ExpireTimeSpan = TimeSpan.FromDays(7); // Keep the login active for 7 days
     });
 
 var app = builder.Build();
@@ -32,7 +32,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//Kimlik Kontrolü
+// ID Check
 app.UseAuthentication(); 
 app.UseAuthorization();  
 

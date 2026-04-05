@@ -23,7 +23,7 @@ namespace CoderBlog.Controllers
             return View();
         }
 
-        // 2. Formdan gelen veriyi veritabanına kaydeden metot (POST)
+        
         [HttpPost]
         public async Task<IActionResult> Register(User user)
         {
@@ -37,7 +37,7 @@ namespace CoderBlog.Controllers
             {
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
-                // Şimdilik ana sayfaya gitsin, Login yapınca oraya bağlarsın
+
                 return RedirectToAction("Login", "User");
             }
 
@@ -62,18 +62,18 @@ namespace CoderBlog.Controllers
 
             if (isPasswordCorrect)
             {
-                // 1. Kullanıcının kimlik kartını (Claims) oluşturuyoruz
+                // 1. We are creating the user’s identity card (Claims)
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, userFromDb.UserName),
                     new Claim(ClaimTypes.Email, userFromDb.Email),
-                    new Claim("UserId", userFromDb.Id.ToString()) // İleride lazım olur
+                    new Claim("UserId", userFromDb.Id.ToString()) // Note to self: I might need this later
                 };
 
-                // 2. Kimlik kartını birleştir (Identity)
+                // 2. Merge identity card (Identity)
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                // 3. Tarayıcıya Cookie'yi fırlat
+                // 3. Send the cookie to the browser
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity));
 

@@ -14,7 +14,7 @@ namespace CoderBlog.Models
         public DateTime CreatedBlog { get; set; } = DateTime.Now;
 
 
-        // Bu makale hangi kullanıcıya ait? (Foreign Key / Dış Anahtar)
+        // Which user does this article belong to? (Foreign Key)
         public int UserId { get; set; }
         public User User { get; set; }
 
